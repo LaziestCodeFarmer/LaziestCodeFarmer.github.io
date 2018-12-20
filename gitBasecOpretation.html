@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width initial-scale=1'>
+    <title>LaziestCodeFarmer's blog</title>
+    <link href="./index/style.min.css" type="text/css" rel="stylesheet">
+    <link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
+<link href="./index/Typora.css" type="text/css" rel="stylesheet">
+</head>
+
+<body style="zoom: 1;">
+<!-- 左图边 -->
+<div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="./index/xtl.jpg">
+            <h3 title="">
+                <a id="MyName" href="#">LaziestCodeFarmer</a>
+            </h3>
+            <div class="description">
+                    <p>在不利和艰难的遭遇里百折不挠</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 右文边 -->
+<div class="main">
+<div class="page-top animated fadeInDown">
+    <div class="nav">
+        <li> <a href="https://laziestcodefarmer.github.io" target="">首页 </a> </li>
+        <li> <a href="https://laziestcodefarmer.github.io" target="">归档 </a> </li>
+        <li> <a href="https://laziestcodefarmer.github.io" target="_self">友链 </a> </li>
+        <li> <a href="https://laziestcodefarmer.github.io" target="_blank">图库 </a> </li>
+        <li> <a href="https://laziestcodefarmer.github.io" target="_blank">API </a> </li>
+    </div> 
+</div>   
+
+
+<div class='typora-export os-windows'>
+<div  id='write'  class = 'is-node'><h1><a name='header-n0' class='md-header-anchor '></a>Git基本操作</h1><ol><li>先进入到操作的仓库，不进行切换分支的话，默认使用的是该仓库的master分支</li><li>git add . 是对所有修改过的文件和创建的文件进行标记索引（也可以指定文件路径），该分支的索引标记</li><li>可以用git status查看所标记文件</li><li>如果添加错了，怎么进行删除呢？有两种方式：第一种是git rm --cached &quot;路径&quot;（只删除索引标记） 第二种是git rm --f &quot;路径&quot;（删除索引和文件）有点像linux强制删除，很霸道~~</li><li>git commit -m &quot;(版本信息)&quot; 进行提交到仓库该分支队列，其实git隐藏文件里有很多信息，里面其中就包括有该仓库的文件信息（创建时间，修改时间什么的）等，不然git add时候怎么识别是否修改过呢。</li><li>git push -u origin master 将该分支队列文件，进行TCP流操作传输到github仓库中（已经测试过，不能跨账号传输，有权限拒绝，所以git文件里面应该保存了账号相关信息进行一个识别）</li></ol><p>&nbsp;</p><p>&nbsp;</p><h2><a name='header-n34' class='md-header-anchor '></a>切换分支</h2><ul><li>git branch newbranch 创建分支</li><li>git branch 查看当前分支</li><li>git branch -a 查看所有分支</li><li>git checout newbranch 切换分支</li></ul><p>&nbsp;</p><h2><a name='header-n61' class='md-header-anchor '></a>其他杂碎</h2><ul><li>git add标记文件索引时，如果有指定传输到某分支，要先切换好，因为默认是master的，如果索引完再进行切换是不行的，还得重新标记，索引时是有分支标记的</li><li>为什么git push -u origin master时，前面要多个origin呢，就好像linux根目录/一样，所有分支是在origin目录下的</li></ul></div>
+
+
+</body>
+</html>
