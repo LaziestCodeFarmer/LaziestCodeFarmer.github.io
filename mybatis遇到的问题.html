@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width initial-scale=1'>
+    <title>LaziestCodeFarmer's blog</title>
+    <link href="./index/style.min.css" type="text/css" rel="stylesheet">
+    <link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
+<link href="./index/Typora.css" type="text/css" rel="stylesheet">
+</head>
+
+<body style="zoom: 1;">
+<!-- 左图边 -->
+<div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="./index/xtl.jpg">
+            <h3 title="">
+                <a id="MyName" href="#">LaziestCodeFarmer</a>
+            </h3>
+            <div class="description">
+                    <p>在不利和艰难的遭遇里百折不挠</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 右文边 -->
+<div class="main">
+<div class="page-top animated fadeInDown">
+    <div class="nav">
+        <li> <a href="https://laziestcodefarmer.github.io" target="">首页 </a> </li>
+        <li> <a href="https://laziestcodefarmer.github.io" target="">归档 </a> </li>
+        <li> <a href="https://laziestcodefarmer.github.io" target="_self">友链 </a> </li>
+        <li> <a href="https://laziestcodefarmer.github.io" target="_blank">图库 </a> </li>
+        <li> <a href="https://laziestcodefarmer.github.io" target="_blank">API </a> </li>
+    </div> 
+</div>   
+
+
+<div class='typora-export os-windows'>
+<div  id='write'  class = 'is-node'><h1><a name='header-n0' class='md-header-anchor '></a>mybatis遇到的问题</h1><p>1.传输插入中文乱码问题</p><p><img src='.\mybatis遇到的问题\1.png' alt='1545742344563' referrerPolicy='no-referrer' /> </p><p>首先来看下mysql表的创建编码问题</p><p>是utf8没问题，难道是接收时编码有问题？咱再看下mysql的配置文件my.ini<img src='.\mybatis遇到的问题\2.png' alt='1545742486427' referrerPolicy='no-referrer' /></p><p><img src='.\mybatis遇到的问题\3.png' alt='1545742609354' referrerPolicy='no-referrer' /></p><p>也没有问题，那就是jdbc传输数据编码格式出了问题，默认编码是什么，暂时不清楚，反正不是utf-8</p><p>咱进行传输编码解析声明一下</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="properties"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="properties"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-def">url</span>=<span class="cm-quote">jdbc</span>:<span class="cm-quote">mysql</span>:<span class="cm-quote">//localhost</span>:<span class="cm-quote">3306/test?useUnicode</span>=<span class="cm-quote">true&amp;characterEncoding</span>=<span class="cm-quote">utf-8</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p>**<img src='.\mybatis遇到的问题\4.png' alt='1545742970853' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>2.idea中编写propeties配置文件时，mybatis.xml用resourse读取该文件不生效，同时properties里面的配置，变量跟值也没有色彩区别，怪怪的</p><p>properties属性编码设置</p><p>**<img src='.\mybatis遇到的问题\5.png' alt='1545743198807' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p><img src='.\mybatis遇到的问题\6.png' alt='1545743276318' referrerPolicy='no-referrer' /></p><p>如果properties文件没有很明显的变化</p><p>如<img src='.\mybatis遇到的问题\7.png' alt='1545743316680' referrerPolicy='no-referrer' /></p><p>图标变成这效果，重启一下过会即可</p></div>
+
+
+</body>
+</html>

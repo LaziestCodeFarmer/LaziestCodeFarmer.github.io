@@ -227,3 +227,7 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
  #write{
   padding-top: 75px;
  }
+
+ #write img{
+  margin-left: 0px;
+}
