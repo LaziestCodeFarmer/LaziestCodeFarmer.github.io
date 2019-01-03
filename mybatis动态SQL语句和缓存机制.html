@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<meta name='viewport' content='width=device-width initial-scale=1'>
+    <title>LaziestCodeFarmer's blog</title>
+    <link href="./index/style.min.css" type="text/css" rel="stylesheet">
+    <link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
+<link href="./index/Typora.css" type="text/css" rel="stylesheet">
+</head>
+
+<body style="zoom: 1;">
+<!-- 左图边 -->
+<div class="sidebar animated fadeInDown">
+    <div class="logo-title">
+        <div class="title">
+            <img src="./index/xtl.jpg">
+            <h3 title="">
+                <a id="MyName" href="#">LaziestCodeFarmer</a>
+            </h3>
+            <div class="description">
+                    <p>在不利和艰难的遭遇里百折不挠</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 右文边 -->
+<div class="main">
+<div class="page-top animated fadeInDown">
+    <div class="nav">
+        <li> <a href="https://laziestcodefarmer.github.io" target="">首页 </a> </li>
+        <li> <a href="https://laziestcodefarmer.github.io" target="">归档 </a> </li>
+        <li> <a href="https://laziestcodefarmer.github.io" target="_self">友链 </a> </li>
+        <li> <a href="https://laziestcodefarmer.github.io" target="_blank">图库 </a> </li>
+        <li> <a href="https://laziestcodefarmer.github.io" target="_blank">API </a> </li>
+    </div> 
+</div>   
+
+
+<div class='typora-export os-windows'>
+<div  id='write'  class = 'is-node'><h1><a name='header-n0' class='md-header-anchor '></a>mybatis动态SQL语句和缓存机制</h1><p>&nbsp;</p><h2><a name='header-n3' class='md-header-anchor '></a>先根据mybatis官网，配置日志，方便执行时可以看到SQL语句，便于认证</h2><p><img src='.\mybatis动态SQL语句和缓存机制\1.png' alt='1545824605880' referrerPolicy='no-referrer' /></p><p><img src='.\mybatis动态SQL语句和缓存机制\2.png' alt='1545824712755' referrerPolicy='no-referrer' /></p><p>看完这，一步步来配置</p><p><img src='.\mybatis动态SQL语句和缓存机制\3.png' alt='1545824782517' referrerPolicy='no-referrer' /></p><p><img src='.\mybatis动态SQL语句和缓存机制\4.png' alt='1545824805988' referrerPolicy='no-referrer' /></p><p><img src='.\mybatis动态SQL语句和缓存机制\5.png' alt='1545824829098' referrerPolicy='no-referrer' /></p><p>配置完，来看看测试效果</p><p><img src='.\mybatis动态SQL语句和缓存机制\6.png' alt='1545824867928' referrerPolicy='no-referrer' /></p><p>并没有期待的SQL语句日志显示，在瞧瞧官网怎么说</p><p><img src='.\mybatis动态SQL语句和缓存机制\7.png' alt='1545830803186' referrerPolicy='no-referrer' /></p><p><img src='.\mybatis动态SQL语句和缓存机制\8.png' alt='1545830828538' referrerPolicy='no-referrer' /></p><p>再来看看效果</p><p><img src='.\mybatis动态SQL语句和缓存机制\9.png' alt='1545830868579' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><h2><a name='header-n18' class='md-header-anchor '></a>SQL动态语句使用</h2><p>product表结构</p><p><img src='.\mybatis动态SQL语句和缓存机制\10.png' alt='1545831054599' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><ol start='' ><li><p><if>标签</p><p>实现功能：传入name和selling_price,如果其中一个参数无值或者为空，则用其中有值的参数判断，如果两则都有值，则全部匹配判断</p><p><img src='.\mybatis动态SQL语句和缓存机制\11.png' alt='1545833244806' referrerPolicy='no-referrer' /></p><p>这是传入2个参数的效果：</p><p><img src='.\mybatis动态SQL语句和缓存机制\12.png' alt='1545845554491' referrerPolicy='no-referrer' /></p><p>这是传入1个参数的效果：</p><p><img src='.\mybatis动态SQL语句和缓存机制\13.png' alt='1545845618024' referrerPolicy='no-referrer' /></p><p>但是如果是三个参数呢，第一个和第三个都为空，第二个有值，但语句里面多了个and，语句错误，这时候就要引入<where>标签了</p></li><li><p><where>标签，该标签下的<if>标签里面，自动清除多余的and，但只能清除前面的</p><p>比如：</p><p>这种写法</p><p><img src='.\mybatis动态SQL语句和缓存机制\14.png' alt='1545845832776' referrerPolicy='no-referrer' /></p><p>把and写到后面不行，所以干脆全部都这样写，也方便复制粘贴，多省事</p></li><li><p><choose>,<when>,<otherwise>选择标签</p><p>传入一个对应类，但是类中某个属性进行查找，等级：name&gt;id,如果name不为空，则以name进行模糊查找，如果name为空，id不为空，则以id进行准确查找，如果两者都为空，则全部查询</p><p>先来看看变量声明问题：</p><p><img src='.\mybatis动态SQL语句和缓存机制\15.png' alt='1545849132909' referrerPolicy='no-referrer' /></p><p><img src='.\mybatis动态SQL语句和缓存机制\16.png' referrerPolicy='no-referrer' /></p><p>如果传入对象，不进行声明，则自动将对象属性拆分成各种参数如：name,id等用的时候只用name等等，而不能对象.属性，因为已经不是一个对象 了</p><p>情况1：</p><p><img src='.\mybatis动态SQL语句和缓存机制\17.png' referrerPolicy='no-referrer' /></p></li></ol><p>&nbsp;</p><p>   情况二：</p><p>   <img src='.\mybatis动态SQL语句和缓存机制\18.png' alt='1545849452043' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>   情况三：</p><p>   <img src='.\mybatis动态SQL语句和缓存机制\19.png' alt='1545849485197' referrerPolicy='no-referrer' /></p><ol start='4' ><li><p><foreach>标签，如果我们传入的是一个数组怎么办，搜索与数组内所匹配的信息</p><p>用<foreach>标签，进行数组变量，重新组合成一个符合语句的字符串</p><p><img src='.\mybatis动态SQL语句和缓存机制\20.png' alt='1545851702494' referrerPolicy='no-referrer' /></p><p>看看官方集合的要求：</p><p><img src='.\mybatis动态SQL语句和缓存机制\21.png' alt='1545851745197' referrerPolicy='no-referrer' /></p><p>所以普通的int[]等数组不能用forezch进行遍历，因为没有迭代器，其实是转到Java内部代码进行实现的</p></li><li><p><bind>标签，进行名称绑定</p><p><img src='.\mybatis动态SQL语句和缓存机制\22.png' alt='1545852892225' referrerPolicy='no-referrer' /></p><p>如果where后面语句很快的话，又没有<if>判断什么的标签，一连串普通的使用，可以用这个先进行拼接，这样看起来舒服点。</p></li><li><p>忘了<set>标签~~，更新信息，跟<where>用法差不多，看官网的</p><p><img src='.\mybatis动态SQL语句和缓存机制\23.png' alt='1545853409114' referrerPolicy='no-referrer' /></p><p>所以写的时候，逗号放后面，会自动清除，放前面不会</p></li></ol><p>&nbsp;</p><h2><a name='header-n70' class='md-header-anchor '></a>缓存机制</h2><p>默认开启的是一级缓存 ，单次会话级别，有点类似session</p><p><img src='C:\Users\Administrator.DESKTOP-REA1I57\AppData\Roaming\Typora\typora-user-images\1546237127541.png' alt='1546237127541' referrerPolicy='no-referrer' /></p><p>看结果：</p><p><img src='.\mybatis动态SQL语句和缓存机制\24.png' alt='1546237312557' referrerPolicy='no-referrer' /></p><p>上图演示了缓存失效的其中原因之一.还有同次会话，缓存会失效，但进行增删改操作时，本次会话的缓存会全部清空。</p><p>&nbsp;</p><h3><a name='header-n77' class='md-header-anchor '></a>开启二级缓存（跨会话级别的）</h3><ol start='' ><li><p>先到mybatis配置文件的<setting>标签里进行开启缓存</p></li><li><p>然后到mapper.xml配置缓存</p><p><img src='.\mybatis动态SQL语句和缓存机制\25.png' alt='1546237750912' referrerPolicy='no-referrer' /></p></li></ol><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p></div>
+</body>
+</html>
